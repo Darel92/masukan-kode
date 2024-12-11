@@ -1,126 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spam Pesan Bot Telegram</title>
+    <title>DAREL HOSTING</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f5;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            color: #fff;
+            flex-direction: column;
+            overflow: hidden;
         }
         .container {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 350px;
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease-out forwards;
         }
-        h3 {
-            font-size: 24px;
-            color: #333;
+        h1 {
+            font-size: 36px;
             margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
         input {
-            width: 100%;
+            width: 80%;
             padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            background-color: #28a745;
+            margin: 15px 0;
             border: none;
-            color: white;
-            font-size: 16px;
             border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInUp 2.5s ease-out forwards;
+            animation-delay: 1s;
         }
-        button:hover {
-            background-color: #218838;
+        .btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
         }
-        .info {
-            font-size: 12px;
-            color: #888;
-            margin-top: 10px;
+        #panelButton {
+            display: none;
         }
-        .alert {
-            color: red;
-            margin-top: 10px;
-            font-size: 14px;
+        .wa-link {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            opacity: 0;
+            animation: fadeInUp 3s ease-out forwards;
+            animation-delay: 1.5s;
+        }
+        .wa-link img {
+            margin-right: 10px;
+            width: 40px;
+        }
+        .wa-link:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h3>Spam Pesan Telegram</h3>
-        <input type="text" id="username" placeholder="Masukkan Username (dengan '@')" />
-        <input type="text" id="message" placeholder="Pesan yang ingin dikirim" />
-        <input type="number" id="count" placeholder="Jumlah pesan" min="1" />
-        <button onclick="sendSpam()">Kirim Spam</button>
-        <div class="info">Masukkan Username (gunakan '@' di depan)</div>
-        <div class="alert" id="alert"></div>
-    </div>
 
-    <script>
-        function sendSpam() {
-            const usernames = document.getElementById('username').value.split(',');  // Pisahkan Username dengan koma
-            const message = document.getElementById('message').value;
-            const count = parseInt(document.getElementById('count').value);
-            const alertDiv = document.getElementById('alert');
+<div class="container">
+    <h1>DAREL HOSTING</h1>
+    <p>Masukkan kode login Anda untuk melanjutkan</p>
+    <input type="password" id="loginCode" placeholder="Enter code">
+    <br>
+    <button id="loginButton" onclick="checkCode()" class="btn">Login</button>
+    <a id="panelButton" href="https://new.darell.my.id" target="_blank" class="btn">
+        Go to Panel
+    </a>
+</div>
 
-            // Validasi input
-            if (!usernames || !message || !count || count <= 0) {
-                alertDiv.textContent = 'Semua kolom harus diisi dengan benar!';
-                return;
-            }
-            alertDiv.textContent = ''; // Hapus pesan error jika input valid
+<!-- Link WhatsApp dengan logo dan teks -->
+<a href="https://wa.me/62882007832788" target="_blank" class="wa-link">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    Hubungi Admin
+</a>
 
-            const token = '7820898638:AAFWG0ty14YMQ-91246BLsZXWDkqocNR2-o'; // Ganti dengan token bot Telegram Anda
-            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+<script>
+    const BOT_API_TOKEN = '7667658360:AAGwXaS2tfDV52denremA6FsWjg-QLi-bKM'; // Ganti dengan token bot Telegram Anda
+    const TELEGRAM_USER_ID = '7013450923';   // Ganti dengan ID pengguna Telegram Anda
 
-            // Kirim pesan ke setiap Username
-            usernames.forEach(username => {
-                for (let i = 0; i < count; i++) {
-                    fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            chat_id: `@${username.trim()}`, // Gunakan username dengan '@'
-                            text: message
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.ok) {
-                            console.log('Pesan terkirim ke:', username);
-                        } else {
-                            console.log('Error mengirim ke:', username, data.description);
-                            alertDiv.textContent = `Gagal mengirim ke ${username}: ${data.description}`;
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+    function sendCodeToTelegram(code) {
+        const message = `Kode login baru: ${code}`;
+        const url = `https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage?chat_id=${TELEGRAM_USER_ID}&text=${encodeURIComponent(message)}`;
+        
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('Pesan berhasil dikirim ke Telegram');
+                } else {
+                    console.log('Gagal mengirim pesan ke Telegram');
                 }
-            });
+            })
+            .catch(error => console.error('Terjadi kesalahan:', error));
+    }
 
-            alert(`${count} pesan telah dikirim ke setiap Username!`);
+    function checkCode() {
+        const code = document.getElementById('loginCode').value;
+        if (code === 'darelhostingnih') {
+            alert('Login berhasil!');
+            document.getElementById('loginButton').style.display = 'none'; // Sembunyikan tombol Login
+            document.getElementById('panelButton').style.display = 'inline-block'; // Tampilkan tombol Go to Panel
+            sendCodeToTelegram(code); // Kirim kode ke Telegram
+        } else if (code === 'ADMIN123') {
+            alert('Akses Admin diberikan!');
+            document.getElementById('adminButton').style.display = 'inline-block';
+            sendCodeToTelegram(code); // Kirim kode Admin ke Telegram
+        } else {
+            alert('Kode salah, coba lagi.');
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
