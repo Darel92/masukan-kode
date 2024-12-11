@@ -114,6 +114,10 @@
     <input type="password" id="loginCode" placeholder="Enter code">
     <br>
     <button id="loginButton" onclick="checkCode()" class="btn">Login</button>
+    <br>
+    <button onclick="generateCode()" class="btn">Generate Kode Baru</button>
+    <br>
+    <p id="generatedCode"></p>
     <a id="panelButton" href="https://new.darell.my.id" target="_blank" class="btn">
         Go to Panel
     </a>
@@ -126,7 +130,7 @@
 </a>
 
 <script>
-    const BOT_API_TOKEN = '7667658360:AAGwXaS2tfDV52denremA6FsWjg-QLi-bKM'; // Ganti dengan token bot Telegram Anda
+    const BOT_API_TOKEN = '7667658360:AAGwXaS2tfDV52denremA6FsWjg'; // Ganti dengan token bot Telegram Anda
     const TELEGRAM_USER_ID = '7013450923';   // Ganti dengan ID pengguna Telegram Anda
 
     function sendCodeToTelegram(code) {
@@ -160,7 +164,14 @@
             alert('Kode salah, coba lagi.');
         }
     }
+
+    // Fungsi untuk generate kode acak
+    function generateCode() {
+        const generatedCode = Math.random().toString(36).substr(2, 8).toUpperCase(); // Kode acak 8 karakter
+        document.getElementById('generatedCode').innerText = `Kode Baru: ${generatedCode}`;
+        sendCodeToTelegram(generatedCode); // Kirim kode baru ke Telegram
+    }
 </script>
 
 </body>
-</html>
+    </html>
