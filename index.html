@@ -45,9 +45,6 @@
             outline: none;
             font-size: 16px;
             text-align: center;
-            opacity: 0;
-            animation: fadeInUp 2s ease-out forwards;
-            animation-delay: 0.5s;
         }
         .btn {
             background: linear-gradient(135deg, #ff416c, #ff4b2b);
@@ -62,38 +59,14 @@
             transition: all 0.3s ease;
             display: inline-block;
             margin-top: 20px;
-            opacity: 0;
-            animation: fadeInUp 2.5s ease-out forwards;
-            animation-delay: 1s;
         }
         .btn:hover {
             background: linear-gradient(135deg, #ff4b2b, #ff416c);
             transform: scale(1.05);
         }
-        #panelButton {
+        #panelButton, #generateButton {
             display: none;
         }
-        .wa-link {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.3s;
-            opacity: 0;
-            animation: fadeInUp 3s ease-out forwards;
-            animation-delay: 1.5s;
-        }
-        .wa-link img {
-            margin-right: 10px;
-            width: 40px;
-        }
-        .wa-link:hover {
-            transform: scale(1.1);
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -108,19 +81,18 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="loginContainer">
     <h1>DAREL HOSTING</h1>
-    <p>Masukkan kode login Anda untuk melanjutkan</p>
-    <input type="password" id="loginCode" placeholder="Enter code">
+    <p>Masukkan Username dan Password untuk Login</p>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
     <br>
-    <button id="loginButton" onclick="checkCode()" class="btn">Login</button>
-    <br>
-    <button onclick="generateCode()" class="btn">Generate Kode Baru</button>
-    <br>
-    <p id="generatedCode"></p>
-    <a id="panelButton" href="https://new.darell.my.id" target="_blank" class="btn">
-        Go to Panel
-    </a>
+    <button id="loginButton" onclick="login()" class="btn">Login</button>
+</div>
+
+<div class="container" id="generateContainer" style="display: none;">
+    <h1>Generate Kode Baru</h1>
+    <button onclick="generateCode()" class="btn" id="generateButton">Generate Kode Baru</button>
 </div>
 
 <!-- Link WhatsApp dengan logo dan teks -->
@@ -130,13 +102,16 @@
 </a>
 
 <script>
-    const BOT_API_TOKEN = '7667658360:AAGwXaS2tfDV52denremA6FsWjg'; // Ganti dengan token bot Telegram Anda
-    const TELEGRAM_USER_ID = '7013450923';   // Ganti dengan ID pengguna Telegram Anda
+    // Ganti dengan token bot Telegram Anda
+    const BOT_API_TOKEN = '7667658360:AAGwXaS2tfDV52denremA6FsWjg-QLi-bKM'; 
+    // Ganti dengan chat ID Telegram Anda (bisa menggunakan ID yang didapatkan dari getUpdates API)
+    const TELEGRAM_USER_ID = '7013450923';  
 
+    // Fungsi untuk mengirim kode ke Telegram
     function sendCodeToTelegram(code) {
         const message = `Kode login baru: ${code}`;
         const url = `https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage?chat_id=${TELEGRAM_USER_ID}&text=${encodeURIComponent(message)}`;
-        
+
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -149,24 +124,23 @@
             .catch(error => console.error('Terjadi kesalahan:', error));
     }
 
-    function checkCode() {
-        const code = document.getElementById('loginCode').value;
-        if (code === 'darelhostingnih') {
+    // Fungsi login untuk memverifikasi username dan password
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === 'DAREL' && password === 'ADMIN123') {
             alert('Login berhasil!');
-            document.getElementById('loginButton').style.display = 'none'; // Sembunyikan tombol Login
-            document.getElementById('panelButton').style.display = 'inline-block'; // Tampilkan tombol Go to Panel
-        } else if (code === 'ADMIN123') {
-            alert('Akses Admin diberikan!');
-            sendCodeToTelegram(code); // Kirim kode Admin ke Telegram
+            document.getElementById('loginContainer').style.display = 'none';  // Sembunyikan login form
+            document.getElementById('generateContainer').style.display = 'block'; // Tampilkan tombol generate
         } else {
-            alert('Kode salah, coba lagi.');
+            alert('Username atau Password salah, coba lagi.');
         }
     }
 
     // Fungsi untuk generate kode acak
     function generateCode() {
         const generatedCode = Math.random().toString(36).substr(2, 8).toUpperCase(); // Kode acak 8 karakter
-        document.getElementById('generatedCode').innerText = `Kode Baru: ${generatedCode}`;
         sendCodeToTelegram(generatedCode); // Kirim kode baru ke Telegram
     }
 </script>
