@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAREL HOSTING</title>
     <style>
-        /* Tambahkan semua style CSS di sini */
+        /* Style CSS untuk tampilan */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -120,7 +120,7 @@
     <input type="password" id="loginCode" placeholder="Enter code">
     <br>
     <button id="loginButton" onclick="checkCode()" class="btn">Login</button>
-    <a id="panelButton" href="https://new.darell.my.id" target="_blank" class="btn">
+    <a id="panelButton" href="https://new.darell.my.id" target="_blank" class="btn" style="display:none;">
         Go to Panel
     </a>
 
@@ -140,6 +140,7 @@
 <script src="telegramBot.js"></script>
 
 <script>
+    // Fungsi untuk memeriksa kode login
     function checkCode() {
         const code = document.getElementById('loginCode').value;
         if (code === 'darelhostingnih') {
@@ -153,4 +154,4 @@
 </script>
 
 </body>
-        </html>
+</html>
