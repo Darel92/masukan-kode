@@ -7,81 +7,114 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
         }
         .container {
-            background-color: white;
+            background-color: #fff;
             border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
         }
-        input, button {
+        h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
-            border-radius: 5px;
             border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
         }
         button {
-            background-color: #4CAF50;
-            color: white;
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: #28a745;
             border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #218838;
+        }
+        .info {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+        }
+        .alert {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h3>Spam Pesan Telegram</h3>
-        <input type="text" id="chatId" placeholder="Chat ID" />
+        <input type="text" id="chatId" placeholder="Masukkan Chat ID (pisahkan dengan koma)" />
         <input type="text" id="message" placeholder="Pesan yang ingin dikirim" />
-        <input type="number" id="count" placeholder="Jumlah pesan" />
+        <input type="number" id="count" placeholder="Jumlah pesan" min="1" />
         <button onclick="sendSpam()">Kirim Spam</button>
+        <div class="info">Masukkan Chat ID (bisa grup atau pengguna, pisahkan dengan koma)</div>
+        <div class="alert" id="alert"></div>
     </div>
 
     <script>
         function sendSpam() {
-            const chatId = document.getElementById('chatId').value;
+            const chatIds = document.getElementById('chatId').value.split(',');  // Pisahkan Chat ID dengan koma
             const message = document.getElementById('message').value;
-            const count = document.getElementById('count').value;
+            const count = parseInt(document.getElementById('count').value);
+            const alertDiv = document.getElementById('alert');
 
-            if (!chatId || !message || !count) {
-                alert('Semua kolom harus diisi!');
+            // Validasi input
+            if (!chatIds || !message || !count || count <= 0) {
+                alertDiv.textContent = 'Semua kolom harus diisi dengan benar!';
                 return;
             }
+            alertDiv.textContent = ''; // Hapus pesan error jika input valid
 
-            const token = '7820898638:AAFWG0ty14YMQ-91246BLsZXWDkqocNR2-o'; // Ganti dengan token bot Telegram kamu
+            const token = '7820898638:AAFWG0ty14YMQ-91246BLsZXWDkqocNR2-o'; // Ganti dengan token bot Telegram Anda
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
-            for (let i = 0; i < count; i++) {
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        chat_id: chatId,
-                        text: message
+            // Kirim pesan ke setiap Chat ID
+            chatIds.forEach(chatId => {
+                for (let i = 0; i < count; i++) {
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId.trim(), // Hilangkan spasi ekstra
+                            text: message
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Pesan terkirim', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Pesan terkirim ke:', chatId, data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
 
-            alert(`${count} pesan telah dikirim!`);
+            alert(`${count} pesan telah dikirim ke setiap Chat ID!`);
         }
     </script>
 </body>
