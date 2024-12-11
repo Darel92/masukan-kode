@@ -30,6 +30,7 @@ function sendCodeToTelegram(newCode) {
 function generateNewCode() {
     const adminCode = document.getElementById('adminCode').value;
     if (adminCode === 'ADMIN123') {
+        // Membuat kode baru acak
         const newCode = Math.random().toString(36).substring(2, 10).toUpperCase();
         alert(`Kode baru berhasil dibuat: ${newCode}`);
         sendCodeToTelegram(newCode); // Kirim ke Telegram
