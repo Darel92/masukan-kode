@@ -5,7 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAREL HOSTING</title>
     <style>
-        /* Style yang sudah ada */
+        /* Tambahkan semua style CSS di sini */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 2s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeInUp 2.5s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+        }
+
+        .wa-link {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            opacity: 0;
+            animation: fadeInUp 3s ease-out forwards;
+            animation-delay: 1.5s;
+        }
+
+        .wa-link img {
+            margin-right: 10px;
+            width: 40px;
+        }
+
+        .wa-link:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -49,4 +153,4 @@
 </script>
 
 </body>
-</html>
+        </html>
