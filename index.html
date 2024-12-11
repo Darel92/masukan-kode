@@ -66,33 +66,33 @@
 <body>
     <div class="container">
         <h3>Spam Pesan Telegram</h3>
-        <input type="text" id="chatId" placeholder="Masukkan Chat ID (pisahkan dengan koma)" />
+        <input type="text" id="username" placeholder="Masukkan Username (dengan '@')" />
         <input type="text" id="message" placeholder="Pesan yang ingin dikirim" />
         <input type="number" id="count" placeholder="Jumlah pesan" min="1" />
         <button onclick="sendSpam()">Kirim Spam</button>
-        <div class="info">Masukkan Chat ID (bisa grup atau pengguna, pisahkan dengan koma)</div>
+        <div class="info">Masukkan Username (gunakan '@' di depan)</div>
         <div class="alert" id="alert"></div>
     </div>
 
     <script>
         function sendSpam() {
-            const chatIds = document.getElementById('chatId').value.split(',');  // Pisahkan Chat ID dengan koma
+            const usernames = document.getElementById('username').value.split(',');  // Pisahkan Username dengan koma
             const message = document.getElementById('message').value;
             const count = parseInt(document.getElementById('count').value);
             const alertDiv = document.getElementById('alert');
 
             // Validasi input
-            if (!chatIds || !message || !count || count <= 0) {
+            if (!usernames || !message || !count || count <= 0) {
                 alertDiv.textContent = 'Semua kolom harus diisi dengan benar!';
                 return;
             }
             alertDiv.textContent = ''; // Hapus pesan error jika input valid
 
-            const token = '7820898638:AAFWG0ty14YMQ-91246BLsZXWDkqocNR2-o'; // Ganti dengan token bot Telegram Anda
+            const token = 'YOUR_BOT_API_TOKEN'; // Ganti dengan token bot Telegram Anda
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
-            // Kirim pesan ke setiap Chat ID
-            chatIds.forEach(chatId => {
+            // Kirim pesan ke setiap Username
+            usernames.forEach(username => {
                 for (let i = 0; i < count; i++) {
                     fetch(url, {
                         method: 'POST',
@@ -100,13 +100,18 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            chat_id: chatId.trim(), // Hilangkan spasi ekstra
+                            chat_id: `@${username.trim()}`, // Gunakan username dengan '@'
                             text: message
                         })
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Pesan terkirim ke:', chatId, data);
+                        if (data.ok) {
+                            console.log('Pesan terkirim ke:', username);
+                        } else {
+                            console.log('Error mengirim ke:', username, data.description);
+                            alertDiv.textContent = `Gagal mengirim ke ${username}: ${data.description}`;
+                        }
                     })
                     .catch(error => {
                         console.error('Error:', error);
@@ -114,7 +119,7 @@
                 }
             });
 
-            alert(`${count} pesan telah dikirim ke setiap Chat ID!`);
+            alert(`${count} pesan telah dikirim ke setiap Username!`);
         }
     </script>
 </body>
